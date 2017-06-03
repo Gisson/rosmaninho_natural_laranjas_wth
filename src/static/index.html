@@ -32,6 +32,7 @@
 	<md-content layout-padding layout="column">
 		<md-chips ng-model="ctrl.selectedLanguages" md-autocomplete-snap
 			md-transform-chip="ctrl.transformLanguageChip($chip)"
+			title="Write and press Enter to add"
 			md-require-match="false">
 			<md-autocomplete
 					md-selected-item="ctrl.selectedLanguage"
@@ -54,6 +55,7 @@
 			placeholder="Enter good filter"
 			delete-button-label="Remove filter"
 			secondary-placeholder="+ Good Filter"
+			title="Write and press Enter to add"
 			delete-hint="Press delete to remove tag">
 		</md-chips>
 		<md-chips
@@ -64,6 +66,7 @@
 			placeholder="Enter bad filter"
 			delete-button-label="Remove filter"
 			secondary-placeholder="+ Bad Filter"
+			title="Write and press Enter to add"
 			delete-hint="Press delete to remove tag">
 		</md-chips>
 	</md-content>
