@@ -1,20 +1,69 @@
-<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
-body {
-	font-family: sans-serif;
-}
-</style>
+	<!-- Angular Material style sheet -->
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+	<!-- Angular Material Library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+	<!-- Angular App and controllers-->
+	<script src="app.js"></script>
+	<script src="GitHubUsersAutocomplete.js"></script>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="style.css">
+</head>
+<body ng-app="app" ng-cloak>
 
 
-<h1>It works!</h1>
-<h5>Not Apache though</h5>
 
 
-<form action="api/rankuser">
-	<p>
-		Username:
-		<input type="text" name="username" title="GitHub Username">
-	</p>
-	<input type="submit" value="Rank">
-</form>
+<div ng-controller="GitHubUsersAutocomplete as ctrl" layout="column" ng-cloak>
+	<md-content layout-padding layout="column">
+		<form ng-submit="ctrl.submit($event)">
+			<md-autocomplete
+					ng-disabled="ctrl.isDisabled"
+					md-no-cache="ctrl.noCache"
+					md-delay="ctrl.delay"
+					md-selected-item="ctrl.selectedItem"
+					md-search-text="ctrl.searchText"
+					md-items="item in ctrl.querySearch(ctrl.searchText)"
+					md-item-text="item.login"
+					md-min-length="4"
+					md-floating-label="GitHub username"
+					md-menu-class="autocomplete-custom-template"
+					md-match-case-insensitive="true"
+					ng-trim="false"
+					required flex>
+				<md-item-template>
+					<div class="avatar" ng-style="{'background-image' : 'url(\'' + item.avatar_url + '\')'}"></div>
+					<div class="username">{{item.login}}</div>
+				</md-item-template>
+				<md-not-found>
+					No users found.
+				</md-not-found>
+			</md-autocomplete>
+			<div layout="column" layout-align="center end">
+				<md-button type="submit" class="md-primary md-raised">Rank</md-button>
+			</div>
+		</form>
+	</md-content>
+
+	<div>{{ctrl.data}}</div>
+</div>
+
+
+
+
+
+
+</body>
+</html>

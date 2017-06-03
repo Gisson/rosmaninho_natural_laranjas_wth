@@ -5,7 +5,7 @@ from manager import *
 import os
 import logging
 
-log_level = logging.INFO
+log_level = logging.DEBUG
 logging.basicConfig(level = log_level) 
 logger = logging.getLogger(__name__)
 logger.level = log_level 
@@ -33,7 +33,7 @@ class Repos:
         logger.info("[REPOS] - Getting their repos")
         repos = self.github.get_user(self.user).get_repos()
 
-        for repo in repos:
+        for repo, _ in zip(repos, range(Limits.MAX_REPOS)):
             logger.info("[REPOS] - Checking their repos against the techs=" + str(self.techs))
             if all(lang in repo.get_languages() for lang in self.techs):
                 filtered_repos += [repo]
