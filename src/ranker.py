@@ -69,7 +69,7 @@ class Ranker:
             if matches:
                 for match in matches:
                     match_counts[filter.pattern] = match_counts[filter.pattern]+1 if (filter.pattern in match_counts) else 1
-                    logger.debug("Ranker: '" + filter.pattern + "' match on line " + str(line.lineno) + ': ' + match)
+                    logger.debug("Ranker: '" + filter.pattern + "' match on line " + str(line.lineno) + ': ' + match + ' rank: ' + str(rank))
                     rank += filter.weight
         return {Keys.USER: line.author, Keys.RANK: rank, Keys.MATCHES: match_counts, Keys.WEAK_MATCHES: {}}
 

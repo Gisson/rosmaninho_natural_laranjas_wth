@@ -48,7 +48,7 @@ class MainHandler(tornado.web.RequestHandler):
 
 				rank = man.rank()
 				user_info = man.get_user_info()
-				self.cache[username]={'rank-cache':rank, 'info-cache':user_info}
+				######CACHE DISABLED###self.cache[username]={'rank-cache':rank, 'info-cache':user_info}
 			print("CACHE after response: ", self.cache)
 			self.write({'rank': rank, 'details' : user_info})
 		except tornado.web.MissingArgumentError as e:

@@ -58,7 +58,7 @@ class Manager:
 
     def add_filter(self, weight, pattern):
         self.ranker.add_filter(int(weight), pattern)
-        print("add filter: " + pattern)
+        print("add filter: w="+ str(weight) + " '" + pattern+"'")
         return self
 
     def rank(self):
