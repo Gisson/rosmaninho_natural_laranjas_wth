@@ -64,7 +64,6 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 	}
 
 	self.showUser = function(item){
-		item.rank = new Date().getMilliseconds() % 100;
 		self.resultUsers.push(item);
 	};
 	self.removeUser = function(item){
