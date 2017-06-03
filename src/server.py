@@ -38,7 +38,7 @@ class MainHandler(tornado.web.RequestHandler):
 				print("== filters ==")
 				for f in filters:
 					print(f)
-					man.add_filter(f['weight'], f['filter'
+					man.add_filter(f['weight'], f['filter'])
 				rank = man.rank()
 				user_info = man.get_user_info()
 				######CACHE DISABLED###self.cache[username]={'rank-cache':rank, 'info-cache':user_info}
