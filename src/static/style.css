@@ -46,6 +46,7 @@ md-card .avatar {
 }
 
 md-card .rank {
+	font-weight: bold;
 }
 
 md-card .name {
@@ -69,4 +70,8 @@ md-card .login:before {
 		max-width: 960px;
 		margin: auto;
 	}
+}
+
+.not-hireable {
+	opacity: 0.5;
 }

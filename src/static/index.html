@@ -103,10 +103,11 @@
 	</md-content>
 	<md-content>
 		<md-card md-theme-watch ng-repeat="item in ctrl.resultUsers | orderBy: 'rank':true">
+			<div ng-class="{'not-hireable' : item.details.hireable != true}">
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-headline">
-						<span class="rank">{{item.rank.rank}}.</span>
+						<span class="rank">{{item.rank.rank}}</span>
 						<span class="name">{{item.details.name}}</span>
 						<span class="login">
 							<a href="https://github.com/{{item.rank.user}}" target="_blank">{{item.rank.user}}</a>
@@ -126,9 +127,12 @@
 				{{item}}
 			</md-card-content>
 			<md-card-actions layout="row" layout-align="end center">
-				<md-button ng-href="mailto:{{item.details.email}}" target="_blank" class="email">{{item.details.email}}</md-button>
+				<md-button ng-href="mailto:{{item.details.email}}"
+					ng-show="item.details.email != ''"
+					target="_blank" class="email">{{item.details.email}}</md-button>
 				<md-button ng-click="ctrl.removeUser(item)">Dismiss</md-button>
 			</md-card-actions>
+			</div>
 		</md-card>
 	</md-content>
 
