@@ -18,8 +18,7 @@ class Partitioner:
         self.files = files
         self.author = author
 
-    def get_code_elements(self):
-        fileblocks=[]
+    def get_code_elements(self,fileblocks=[]):
         for fil in self.files:
             if not fil.patch: #its a blob 
                 continue

@@ -8,6 +8,7 @@ from repos import *
 from  partitioner import Partitioner
 from block import *
 from ranker import *
+from multiprocessing import Process
 
 # swinging the code hammer ^_^'
 log_level = logging.DEBUG
@@ -46,7 +47,6 @@ class Manager:
         self.ranker = Ranker(user)
 
 
-
     def add_tech(self, techname):
         """filter user repos by technology"""
         self.repositories.add_tech(techname)
@@ -63,12 +63,20 @@ class Manager:
             logger.debug("rank_repo_name: " + repo.name)
             commits = repo.get_commits(author=self.user)
             blocks = []
+            jobs=[]
             for c in commits:
                 logger.debug("commit_sha: "+c.sha)
                 part = Partitioner(self.user, c.files)
-                blocks += part.get_code_elements()
+                p=Process(target=Partitioner.get_code_elements, args=(part,blocks))
+                jobs+=[p]
+                p.start()
+                p.run()
+                #blocks += part.get_code_elements()
+            for i in range(len(jobs)):
+                jobs[i].join()
+            logger.debug("Block value: "+str(blocks))
             b = Block(blocks)
-
+            
             matches = b.accept(self.ranker)
             matches.pop(Keys.USER, None)
             ranks = sum_dict(ranks, matches)
