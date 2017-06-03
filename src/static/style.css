@@ -7,6 +7,7 @@ a {
 }
 
 a:hover {
+	cursor: pointer;
 	text-decoration: underline;
 }
 
@@ -99,4 +100,16 @@ md-card .login a {
 
 md-slider:hover {
 	cursor: pointer;
+}
+
+
+
+footer md-toolbar {
+	font-size: 0.9em;
+	color: gray;
+	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+footer a {
+	color: #999;
 }

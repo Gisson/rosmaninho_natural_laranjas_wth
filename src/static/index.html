@@ -25,6 +25,16 @@
 </head>
 <body ng-app="app" ng-cloak>
 
+<header>
+	<md-toolbar>
+		<h2 class="md-toolbar-tools">
+			<span class="md-flex">LMRJ GitHub User Classifier</span>
+		</h2>
+	</md-toolbar>
+</header>
+
+
+
 <main>
 <div ng-controller="GitHubUsersAutocomplete as ctrl" layout="column" ng-cloak>
 
@@ -152,6 +162,22 @@
 
 </div>
 </main>
+
+
+<footer>
+	<md-toolbar class="md-scroll-shrink">
+		<div layout="row" layout-align="center center" flex>
+			<p class="md-label">&copy; 2017
+				<a href="https://github.com/luismrsilva">@luismrsilva</a>
+				<a href="https://github.com/Gisson">@Gisson</a>
+				<a href="https://github.com/rodrigorato">@rodrigorato</a>
+				<a href="https://github.com/nuno-silva">@nuno-silva</a>
+			</p>
+		</div>
+	</md-toolbar>
+</footer>
+
+
 
 </body>
 </html>
