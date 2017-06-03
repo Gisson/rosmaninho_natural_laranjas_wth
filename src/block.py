@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 
+
+# composite pattern
 class CodeElement:
     def accept(self, ranker):
         pass
 
 class Line(CodeElement):
     def __init__(self, author, lineno, code):
-        # TODO
-        pass
+        self.author = author
+        self.lineno = lineno
+        self.code = code
 
     def accept(self, ranker):
         return ranker.visit_line(self)
