@@ -44,7 +44,7 @@ class Repos:
         logger.info("[REPOS] - Returning the matching list of repos=" + str(filtered_repos))
         return filtered_repos
 
-def test():
+def testr():
     # Just to test this one class
     r = Repos("nuno-silva")
     r.add_tech("Java")
