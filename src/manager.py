@@ -10,7 +10,7 @@ from block import *
 from ranker import *
 
 # swinging the code hammer ^_^'
-log_level = logging.INFO
+log_level = logging.DEBUG
 logging.basicConfig(level = log_level)
 logger = logging.getLogger(__name__)
 logger.level = log_level
@@ -43,9 +43,6 @@ class Manager:
         self.ranker = Ranker(user)
         
    
-    def get_avatar_url(self):
-        return 
-
 
     def add_tech(self, techname):
         """filter user repos by technology"""
@@ -58,12 +55,13 @@ class Manager:
 
     def rank(self):
         ranks = {}
-        results = get_repos()
+        results = self.repositories.get_repos()
         for repo in results:
-            logger.debug("repo: " + repo.name)
+            logger.debug("rank_repo_name: " + repo.name)
             commits = repo.get_commits(author=self.user)
             blocks = []
             for c in commits:
+                logger.debug("commit_sha: "+c.sha)
                 part = Partitioner(self.user, c.files)
                 blocks += part.get_code_elements()
             b = Block(blocks)
@@ -71,7 +69,7 @@ class Manager:
             matches = b.accept(self.ranker)
             matches.pop(Keys.USER, None)
             ranks = sum_dict(ranks, matches)
-        ranks[Keys.USER] += matches[self.user]
+        ranks[Keys.USER] = self.user
         return ranks
 
 def test():

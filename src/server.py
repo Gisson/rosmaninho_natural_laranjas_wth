@@ -4,7 +4,7 @@ import tornado.ioloop
 import tornado.web
 import traceback
 
-from manager import *
+import manager
 
 ### Config ###
 PORT = 8888
@@ -14,7 +14,7 @@ class MainHandler(tornado.web.RequestHandler):
 	def stuff(self):
 		try:
 			username = self.get_argument("username");
-			man = Manager(username)
+			man = manager.Manager(username)
 			# TODO: add filters & stuff
 			self.write(man.rank())
 		except tornado.web.MissingArgumentError as e:

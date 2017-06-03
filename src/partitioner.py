@@ -21,6 +21,8 @@ class Partitioner:
     def get_code_elements(self):
         fileblocks=[]
         for fil in self.files:
+            if not fil.patch: #its a blob 
+                continue
             fileblocks+=DiffParser.parse(self.author,fil.patch)
         return fileblocks
 regex="@@ -(\d+),(\d+) \+(\d+),(\d+) @@"

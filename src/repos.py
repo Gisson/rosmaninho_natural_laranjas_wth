@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 from github import Github
-from manager import *
+#from manager import *
+import manager
 import os
 import logging
 
@@ -16,7 +17,7 @@ class Repos:
         self.user = user
         self.techs = []
         logger.info("[REPOS] - Instantiating the Github object")
-        self.github = Manager.getGithub()
+        self.github = manager.Manager.getGithub()
         logger.info("[REPOS] - Intialized!")
 
     def add_tech(self, tech):
@@ -33,7 +34,7 @@ class Repos:
         logger.info("[REPOS] - Getting their repos")
         repos = self.github.get_user(self.user).get_repos()
 
-        for repo, _ in zip(repos, range(Limits.MAX_REPOS)):
+        for repo, _ in zip(repos, range(manager.Limits.MAX_REPOS)):
             logger.info("[REPOS] - Checking their repos against the techs=" + str(self.techs))
             if all(lang in repo.get_languages() for lang in self.techs):
                 filtered_repos += [repo]
