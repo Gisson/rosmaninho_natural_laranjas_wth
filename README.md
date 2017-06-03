@@ -3,7 +3,7 @@
 
 ### "When I’m frustrated because I can’t show off my techie skills to cool companies on LinkedIn. How about GitHub?"
 
-At the moment the main constraint we have is the network speed, so you can find this project  running on a *decent* (Gigabit) connection [over here](http://pikachu.rnl.tecnico.ulisboa.pt:31000) - http://pikachu.rnl.tecnico.ulisboa.pt:31000/.
+At the moment the main constraint we have is the network speed, so please run this on a decent connection!
 
 
 ## Installing and Running
