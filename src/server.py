@@ -16,7 +16,7 @@ class MainHandler(tornado.web.RequestHandler):
 			username = self.get_argument("username");
 			man = manager.Manager(username)
 			# TODO: add filters & stuff
-			self.write(man.rank())
+			self.write({'rank': man.rank(), 'details' : man.get_user_info()})
 		except tornado.web.MissingArgumentError as e:
 			traceback.print_exc()
 			self.write("missing argument(s): username")
