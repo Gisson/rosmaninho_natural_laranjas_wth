@@ -146,9 +146,9 @@
 			<md-card-content>
 			</md-card-content>
 			<md-card-actions layout="row" layout-align="none center">
-				<div flex>Repo count: <span>{{item.rank.repo-count}}</span></div>
-				<div flex>Wikis: <span title="enabled wikis">{{item.rank.repos-with.wiki-enabled}}</span></div>
-				<div flex>Analized Commits: <span>{{item.rank.processed-commits}}</span></div>
+				<div flex>Repo count: <span>{{item.rank['repo-count']}}</span></div>
+				<div flex>Wikis: <span title="enabled wikis">{{item.rank['repos-with']['wiki-enabled']}}</span></div>
+				<div flex>Analized Commits: <span>{{item.rank['processed-commits']}}</span></div>
 				<div layout-align="end center">
 				<md-button ng-href="mailto:{{item.details.email}}"
 					ng-show="item.details.email != ''"
