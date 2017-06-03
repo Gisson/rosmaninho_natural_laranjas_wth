@@ -23,3 +23,6 @@ export GITHUB_API_TOKEN=*YOUR-TOKEN-HERE*
 
 ## The Challenge
 It took us quite some time to pick one of the challenges, but in the end this one was it. It was both interesting and challenging - hah. We implemented a solution in python that basically ranks GitHub profiles based on their repositories - a user can filter profiles based on different technologies/languages and then apply some filters on top of it, defining a *score* for each filter. The profile is then ranked using these criteria and that is whats shown to the user.
+
+## A brief explanation
+If a user is opaque/crossed out it means their GitHub profile isn't 'Availa ble for hire';
