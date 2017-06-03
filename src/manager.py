@@ -37,10 +37,10 @@ class Manager:
         self.user = user
         userobj=Manager.getGithub().get_user(login=user)
         self.user_avatarurl=userobj.avatar_url
-        self.user_bio=userobj.bio
-        self.user_contributions=userobj.contributions
-        self.user_email=userobj.email
-        self.user_hireable=userobj.hireable
+        self.user_bio=userobj.bio if userobj.bio else ""
+        self.user_contributions=userobj.contributions if userobj.contributions else ""
+        self.user_email=userobj.email if userobj.email else ""
+        self.user_hireable=userobj.hireable if userobj.hireable else ""
         self.user_name=userobj.name
         self.repositories = Repos(user)
         self.ranker = Ranker(user)
@@ -75,6 +75,7 @@ class Manager:
         ranks[Keys.USER] = self.user
         return ranks
     def get_user_info(self):
+    #        logger.debug({UserAttributes.AVATAR_URL : self.user_avatarurl,UserAttributes.BIO : self.user_bio, UserAttributes.CONTRIBUTIONS : self.user_contributions, UserAttributes.EMAIL : self.user_email, UserAttributes.HIREABLE : self.user_hireable, UserAttributes.NAME : self.user_name})
         return {UserAttributes.AVATAR_URL : self.user_avatarurl,UserAttributes.BIO : self.user_bio, UserAttributes.CONTRIBUTIONS : self.user_contributions, UserAttributes.EMAIL : self.user_email, UserAttributes.HIREABLE : self.user_hireable, UserAttributes.NAME : self.user_name}
 
 def test():
