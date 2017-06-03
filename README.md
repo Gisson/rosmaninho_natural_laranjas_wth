@@ -26,3 +26,4 @@ It took us quite some time to pick one of the challenges, but in the end this on
 
 ## A brief explanation
 If a user is opaque/crossed out it means their GitHub profile isn't 'Available for hire';
+![A Screenshot of our project](http://i.imgur.com/hsHNpgu.png)
