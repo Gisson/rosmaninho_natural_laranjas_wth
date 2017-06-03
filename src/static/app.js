@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngMaterial', 'ngMessages']);
+var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngAnimate']);
 
 app.config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
@@ -19,11 +19,5 @@ app.controller('rank', function($scope, $http) {
 		$scope.build_time = response.data;
 	});
 });
-
-app.submit = function(event){
-	console.log("asdasd");
-	event.preventDefault();
-}
-
 
 

@@ -8,19 +8,22 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 	self.noCache = false;
 	self.delay = 250;
 
-	self.itens = [];
+	self.items = [];
 	self.querySearch = querySearch;
 	self.searchText = "";
+	self.resultUsers = [];
 
 	function querySearch (query) {
-		var results = query ? self.itens.filter( createFilterFor(query) ) : self.itens, deferred;
+		var results = query ? self.items.filter( createFilterFor(query) ) : self.items, deferred;
 
 		deferred = $q.defer();
 		$http.get("https://api.github.com/search/users?q=" + query)
 		.then(function(response) {
 			deferred.resolve(response.data.items);
+			self.items = response.data.items;
 		}, function(response){
 			deferred.reject(response.data);
+			var error = response.data.message ? response.data.message : "No message. Maybe the internet is sleepy";
 			$mdToast.show(
 				$mdToast.simple()
 				.textContent(response.data.message)
@@ -35,7 +38,7 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 		var lowercaseQuery = angular.lowercase(query);
 
 		return function filterFn(item) {
-			return (item.value.indexOf(lowercaseQuery) === 0);
+			return (item.login.indexOf(lowercaseQuery) === 0);
 		};
 
 	}
@@ -43,7 +46,8 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 	self.submit = function (event){
 		$http.get("api/rankuser?username=" + self.searchText)
 		.then(function(response){
-			self.data = response.data;
+			var item = response.data;
+			self.showUser(item);
 		}, function(response){
 			$mdToast.show(
 				$mdToast.simple()
@@ -54,5 +58,11 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 		event.preventDefault();
 	}
 
-	self.data = "";
+	self.showUser = function(item){
+		item.rank = new Date().getMilliseconds() % 100;
+		self.resultUsers.push(item);
+	};
+	self.removeUser = function(item){
+		self.resultUsers.splice(self.resultUsers.indexOf(item), 1);
+	};
 });

@@ -38,3 +38,16 @@ a:hover {
 	color: white !important;
 }
 
+md-card .avatar {
+	width: 80px;
+	height: 80px;
+    background-size: 80px;
+    background-repeat: no-repeat;
+}
+
+@media (min-width: 1024px) {
+	main {
+		max-width: 960px;
+		margin: auto;
+	}
+}

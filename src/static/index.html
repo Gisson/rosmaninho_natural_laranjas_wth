@@ -1,5 +1,6 @@
 <html lang="en" >
 <head>
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- Angular Material style sheet -->
@@ -20,15 +21,15 @@
 
 	<!-- Style -->
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="animations.css">
 </head>
 <body ng-app="app" ng-cloak>
 
-
-
-
+<main>
 <div ng-controller="GitHubUsersAutocomplete as ctrl" layout="column" ng-cloak>
+
 	<md-content layout-padding layout="column">
-		<form ng-submit="ctrl.submit($event)">
+		<form ng-submit="ctrl.submit($event)" name="usernameForm">
 			<md-autocomplete
 					ng-disabled="ctrl.isDisabled"
 					md-no-cache="ctrl.noCache"
@@ -52,18 +53,29 @@
 				</md-not-found>
 			</md-autocomplete>
 			<div layout="column" layout-align="center end">
-				<md-button type="submit" class="md-primary md-raised">Rank</md-button>
+				<md-button type="submit" class="md-primary md-raised" ng-disabled="usernameForm.$invalid">Rank</md-button>
 			</div>
 		</form>
 	</md-content>
+	<md-content>
+		<md-card md-theme-watch ng-repeat="item in ctrl.resultUsers | orderBy: 'rank':true">
+			<md-card-title>
+				<md-card-title-text>
+					<span class="md-headline"><spam>{{item.rank}}</spam></span>
+					<span class="md-subhead">{{item.user}}</span>
+				</md-card-title-text>
+			</md-card-title>
+			<md-card-content>
+				{{item}}
+			</md-card-content>
+			<md-card-actions layout="row" layout-align="end center">
+				<md-button ng-click="ctrl.removeUser(item)">Fire</md-button>
+			</md-card-actions>
+		</md-card>
+	</md-content>
 
-	<div>{{ctrl.data}}</div>
 </div>
-
-
-
-
-
+</main>
 
 </body>
 </html>
