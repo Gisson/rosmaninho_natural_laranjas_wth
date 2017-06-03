@@ -25,6 +25,7 @@ class Partitioner:
         return fileblocks
 regex="@@ -(\d+),(\d+) \+(\d+),(\d+) @@"
 ignoreregex="-(.*)"
+mylineregex="\+(.*)"
 class DiffParser:
 
     @staticmethod
@@ -33,21 +34,25 @@ class DiffParser:
         wantedStuff=[]
         difftuple=diff.split("\n")[4:]
         for line in difftuple:
-            match=re.match(r""+regex,line)
+            diffsectionstart=re.match(r""+regex,line)
             nomatch=re.match(r""+ignoreregex,line)
+            myline=re.match(r""+mylineregex,line)
             if nomatch:
                 continue
-            elif match:
+            elif diffsectionstart:
                 print("Making block")
                 if not wantedStuff:
                     continue
                 blocks+=[Block(wantedStuff)]
                 wantedStuff=[]
-            elif not match and not nomatch:
-                wantedStuff+=[Line(author,0,line)]
-                print("It matched")
+            elif not diffsectionstart and not nomatch:
+                if myline:
+                    wantedStuff+=[Line(author,0,myline.group(1))]
+                else:
+                    wantedStuff+=[Line("",0,line)]
+                logger.info("It matched")
             else:
-                print("Da fak?")
+                logger.info("Da fak?")
         blocks+=[Block(wantedStuff)]
         return blocks
         #self.old_start_line=match.group(1)
