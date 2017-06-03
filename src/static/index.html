@@ -105,7 +105,7 @@
 				<md-progress-linear md-mode="indeterminate" ng-disabled="!ctrl.loading"></md-progress-linear>
 			</div>
 			<div layout="column" layout-align="center end">
-				<md-button type="submit" class="md-primary md-raised" ng-disabled="usernameForm.$invalid || ctrl.loading">Rank</md-button>
+				<md-button type="submit" class="md-primary md-raised" ng-disabled="usernameForm.$invalid || ctrl.loading || ctrl.filters.length == 0">Rank</md-button>
 			</div>
 		</form>
 	</md-content>
@@ -135,6 +135,8 @@
 			</md-card-title>
 			<md-card-content>
 				{{item}}
+				{{item.rank.repo-count}}
+
 			</md-card-content>
 			<md-card-actions layout="row" layout-align="end center">
 				<md-button ng-href="mailto:{{item.details.email}}"
