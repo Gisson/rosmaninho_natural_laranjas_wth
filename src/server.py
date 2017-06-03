@@ -11,12 +11,24 @@ PORT = 8888
 ### ###
 
 class MainHandler(tornado.web.RequestHandler):
+	cache = {}
 	def stuff(self):
 		try:
+			print("CACHE: ", self.cache)
 			username = self.get_argument("username");
-			man = manager.Manager(username)
+			if username in self.cache:
+				rank = self.cache[username]['rank-cache']
+				user_info = self.cache[username]['info-cache']
+			else:
+				if len(self.cache) > 128: # simple way to clean the cache and don't fill the memory forever
+					self.cache = {}
+				man = manager.Manager(username)
+				rank = man.rank()
+				user_info = man.get_user_info()
+				self.cache[username]={'rank-cache':rank, 'info-cache':user_info}
+			print("CACHE after response: ", self.cache)
 			# TODO: add filters & stuff
-			self.write({'rank': man.rank(), 'details' : man.get_user_info()})
+			self.write({'rank': rank, 'details' : user_info})
 		except tornado.web.MissingArgumentError as e:
 			traceback.print_exc()
 			self.write("missing argument(s): username")
