@@ -8,6 +8,7 @@ from repos import *
 from  partitioner import Partitioner
 from block import *
 from ranker import *
+import datetime
 
 # swinging the code hammer ^_^'
 log_level = logging.DEBUG
@@ -26,7 +27,7 @@ class UserAttributes:
 class Limits:
     MAX_FILES = 30
     MAX_REPOS = 5
-    TIME_WINDOW=356
+    TIME_WINDOW=712
 
 class Manager:
     @staticmethod
@@ -69,7 +70,7 @@ class Manager:
         for repo in results:
             ranks['repo-count']+=1
             logger.debug("rank_repo_name: " + repo.name)
-            commits = repo.get_commits(author=self.user,since=datetime.datetime.now()-datetime.timedelta(days=Limit.TIME_WINDOW),until=datetime.datetime.now())
+            commits = repo.get_commits(author=self.user,since=datetime.datetime.now()-datetime.timedelta(days=Limits.TIME_WINDOW),until=datetime.datetime.now())
             if commits:
                 repos_with = ranks['repos-with']
                 if repo.has_wiki:
