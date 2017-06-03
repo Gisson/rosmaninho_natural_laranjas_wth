@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+from github import Github
 import os
 
 class Keys:
@@ -6,6 +8,10 @@ class Keys:
     RANKINGS ='rankings'
 
 class Manager:
+    @staticmethod
+    def getGithub():
+        return Github(os.environ.get("GITHUB_API_TOKEN"))
+    
     def __init__(self, user):
         self.user = user
     
@@ -24,5 +30,3 @@ class Manager:
                                 }
                }
 
-def getApiToken():
-    return os.environ['GITHUB_API_TOKEN']

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 from github import Github
+from manager import *
 import os
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO) 
 logger = logging.getLogger(__name__)
-logger.level = logging.INFO
+logger.level = logging.INFO 
 
 class Repos:
     def __init__(self, user):
@@ -14,7 +15,7 @@ class Repos:
         self.user = user
         self.techs = []
         logger.info("[REPOS] - Instantiating the Github object")
-        self.github = Github(getApiToken())
+        self.github = Manager.getGithub()
         logger.info("[REPOS] - Intialized!")
 
     def add_tech(self, tech):
@@ -41,10 +42,6 @@ class Repos:
 
         logger.info("[REPOS] - Returning the matching list of repos=" + str(filtered_repos))
         return filtered_repos
-
-
-def getApiToken():
-    return os.environ['GITHUB_API_TOKEN']
 
 if(logger.level == logging.DEBUG):
     # Just to test this one class
