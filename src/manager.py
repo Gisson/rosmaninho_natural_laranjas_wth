@@ -2,6 +2,14 @@
 
 from github import Github
 import os
+import logging
+
+# swinging the code hammer ^_^'
+log_level = logging.INFO
+logging.basicConfig(level = log_level)
+logger = logging.getLogger(__name__)
+logger.level = log_level
+
 
 class Keys:
     USER = 'user'
@@ -10,6 +18,7 @@ class Keys:
 class Manager:
     @staticmethod
     def getGithub():
+        logger.info("[MANAGER] - Instantiating the Github object")
         return Github(os.environ.get("GITHUB_API_TOKEN"))
     
     def __init__(self, user):
