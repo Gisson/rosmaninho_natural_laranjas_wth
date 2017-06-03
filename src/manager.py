@@ -61,11 +61,19 @@ class Manager:
         return self
 
     def rank(self):
-        ranks = {}
+        ranks = {'repos-with': {'wiki-enabled': 0, 'wiki-disabled': 0}}
         results = self.repositories.get_repos()
         for repo in results:
             logger.debug("rank_repo_name: " + repo.name)
             commits = repo.get_commits(author=self.user)
+            if commits:
+                repos_with = ranks['repos-with']
+                if repo.has_wiki:
+                    repos_with['wiki-enabled']+=1
+                else:
+                    repos_with['wiki-disabled']+=1
+            else:
+                continue
             blocks = []
             for c in commits:
                 logger.debug("commit_sha: "+c.sha)
