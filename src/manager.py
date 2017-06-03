@@ -58,11 +58,13 @@ class Manager:
 
     def add_filter(self, weight, pattern):
         self.ranker.add_filter(int(weight), pattern)
+        print("add filter: " + pattern)
         return self
 
     def rank(self):
-        ranks = {'repos-with': {'wiki-enabled': 0, 'wiki-disabled': 0}}
+        ranks = {'rank': 0, 'matches': {}, 'weak-matches': {},'repos-with': {'wiki-enabled': 0, 'wiki-disabled': 0}}
         results = self.repositories.get_repos()
+        logger.info("ranking " + str(len(results)) + " repos")
         for repo in results:
             logger.debug("rank_repo_name: " + repo.name)
             commits = repo.get_commits(author=self.user)
@@ -73,6 +75,7 @@ class Manager:
                 else:
                     repos_with['wiki-disabled']+=1
             else:
+                logger.info("no commits in repo " + repo.name)
                 continue
             blocks = []
             for c in commits:
@@ -84,6 +87,7 @@ class Manager:
                         c.files.remove(f)
 
                 if c.files == [] or c.files == None:
+                    logger.info("no files in commit "+c.sha+" in repo " + repo.name)
                     continue
                 part = Partitioner(self.user, c.files)
                 blocks += part.get_code_elements()

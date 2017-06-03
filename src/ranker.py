@@ -61,7 +61,6 @@ class Ranker:
     def visit_line(self, line, check_author=True):
         logger.debug('visit_line: ' +  str(line.lineno))
         if check_author and line.author != self.user:
-            logger.debug('visit_line author didnt match')
             return {Keys.USER: self.user, Keys.RANK: 0, Keys.MATCHES: {}, Keys.WEAK_MATCHES: {}}
         rank = 0
         match_counts = {}
@@ -72,7 +71,6 @@ class Ranker:
                     match_counts[filter.pattern] = match_counts[filter.pattern]+1 if (filter.pattern in match_counts) else 1
                     logger.debug("Ranker: '" + filter.pattern + "' match on line " + str(line.lineno) + ': ' + match)
                     rank += filter.weight
-        logger.debug('visit_line author')
         return {Keys.USER: line.author, Keys.RANK: rank, Keys.MATCHES: match_counts, Keys.WEAK_MATCHES: {}}
 
 def test_ranker():

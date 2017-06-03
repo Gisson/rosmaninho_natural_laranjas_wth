@@ -32,7 +32,7 @@ class Repos:
         logger.info("[REPOS] - Starting the search for user " + self.user + "'s repos")
         filtered_repos = []
         logger.info("[REPOS] - Getting their repos")
-        repos = self.github.get_user(self.user).get_watched()
+        repos = self.github.get_user(self.user).get_repos()
 
         for repo, _ in zip(repos, range(manager.Limits.MAX_REPOS)):
             logger.info("[REPOS] - Checking their repos against the techs=" + str(self.techs))
