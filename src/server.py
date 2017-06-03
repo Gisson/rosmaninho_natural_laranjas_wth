@@ -26,10 +26,6 @@ class MainHandler(tornado.web.RequestHandler):
 	def post(self):
 		return self.stuff()
 
-class IndexHandler(tornado.web.RequestHandler):
-	def get(self):
-		self.render("static/index.html")
-
 def make_app():
 	return tornado.web.Application([
 
@@ -37,7 +33,7 @@ def make_app():
 		(r"/api/rankuser", MainHandler),
 
 		# Serve index.html on /
-		(r"/", IndexHandler),
+		(r"/()",tornado.web.StaticFileHandler, {"path": "./src/static/index.html"},),
 
 		# Serve everthing inside static/ on /
 		(r"/(.*)",tornado.web.StaticFileHandler, {"path": "./src/static"},),
