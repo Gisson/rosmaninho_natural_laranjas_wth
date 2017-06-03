@@ -108,7 +108,7 @@
 				<md-card-title-text>
 					<span class="md-headline">
 						<span class="rank">{{item.rank.rank}}</span>
-						<span class="name">{{item.details.name}}</span>
+						<span class="name">{{item.details.name ? item.details.name : item.rank.user}}</span>
 						<span class="login">
 							<a href="https://github.com/{{item.rank.user}}" target="_blank">{{item.rank.user}}</a>
 						</span>

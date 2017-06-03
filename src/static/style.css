@@ -61,7 +61,7 @@ md-card .login a {
 	color: inherit;
 }
 
-md-card .login:before {
+md-card .login::before {
 	content: "@";
 }
 
@@ -74,4 +74,8 @@ md-card .login:before {
 
 .not-hireable {
 	opacity: 0.5;
+}
+
+.not-hireable .name {
+	text-decoration: line-through;
 }
