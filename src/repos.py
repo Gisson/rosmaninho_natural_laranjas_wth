@@ -5,9 +5,10 @@ from manager import *
 import os
 import logging
 
-logging.basicConfig(level=logging.INFO) 
+log_level = logging.INFO
+logging.basicConfig(level = log_level) 
 logger = logging.getLogger(__name__)
-logger.level = logging.INFO 
+logger.level = log_level 
 
 class Repos:
     def __init__(self, user):
@@ -49,3 +50,4 @@ if(logger.level == logging.DEBUG):
     r.add_tech("Java")
     for repo in r.get_repos():
         print(repo.name)
+        
