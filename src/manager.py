@@ -32,7 +32,7 @@ class Manager:
     def getGithub():
         logger.info("[MANAGER] - Instantiating the Github object")
         return Github(os.environ.get("GITHUB_API_TOKEN"))
-    
+
     def __init__(self, user):
         self.user = user
         userobj=Manager.getGithub().get_user(login=user)
@@ -44,8 +44,8 @@ class Manager:
         self.user_name=userobj.name
         self.repositories = Repos(user)
         self.ranker = Ranker(user)
-        
-   
+
+
 
     def add_tech(self, techname):
         """filter user repos by technology"""
@@ -68,12 +68,11 @@ class Manager:
                 part = Partitioner(self.user, c.files)
                 blocks += part.get_code_elements()
             b = Block(blocks)
-            
+
             matches = b.accept(self.ranker)
             matches.pop(Keys.USER, None)
             ranks = sum_dict(ranks, matches)
         ranks[Keys.USER] = self.user
-        ran
         return ranks
     def get_user_info(self):
         return {UserAttributes.AVATAR_URL : self.user_avatarurl,UserAttributes.BIO : self.user_bio, UserAttributes.CONTRIBUTIONS : self.user_contributions, UserAttributes.EMAIL : self.user_email, UserAttributes.HIREABLE : self.user_hireable, UserAttributes.NAME : self.user_name}
@@ -86,7 +85,7 @@ def test():
         part = Partitioner("nuno-silva", c.files)
         blocks += part.get_code_elements()
     b = Block(blocks)
-    
+
     r = Ranker("nuno-silva")
     r.add_filter(2, "private")
     r.add_filter(0.1, "public")
