@@ -32,9 +32,21 @@ class Manager:
     
     def __init__(self, user):
         self.user = user
+        userobj=Manager.getGithub().get_user(login=user)
+        self.user_avatarurl=userobj.avatar_url
+        self.user_bio=userobj.bio
+        self.user_contributions=userobj.contributions
+        self.user_email=userobj.email
+        self.user_hireable=userobj.hireable
+        self.user_name=userobj.name
         self.repositories = Repos(user)
         self.ranker = Ranker(user)
-    
+        
+   
+    def get_avatar_url(self):
+        return 
+
+
     def add_tech(self, techname):
         """filter user repos by technology"""
         self.repositories.add_tech(techname)
@@ -63,7 +75,7 @@ class Manager:
         return ranks
 
 def test():
-    repo = repos.test()[0]
+    repo = testr()[0]
     commits = repo.get_commits(author="nuno-silva")
     blocks = []
     for c in commits:
