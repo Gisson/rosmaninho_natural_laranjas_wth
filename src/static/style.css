@@ -79,3 +79,14 @@ md-card .login::before {
 .not-hireable .name {
 	text-decoration: line-through;
 }
+
+
+#my-filters .filter {
+	font-weight: bold;
+}
+#my-filters .weight::before {
+	content: '(';
+}
+#my-filters .weight::after {
+	content: ')';
+}

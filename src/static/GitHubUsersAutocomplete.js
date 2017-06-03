@@ -13,8 +13,7 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 	self.searchText = "";
 	self.resultUsers = [];
 	self.loading = false;
-	self.goodFilters = [];
-	self.badFilters = [];
+	self.filters = [];
 	self.selectedLanguages = [];
 
 	function querySearch (query) {
@@ -51,8 +50,7 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 		self.loading = true;
 		$http.post("api/rankuser?username=" + self.searchText,
 		JSON.stringify({
-			'goodFilters' : self.goodFilters,
-			'badFilters' : self.badFilters,
+			'filters' : self.filters,
 			'languages' : self.selectedLanguages,
 		}))
 		.then(function(response){
@@ -97,4 +95,14 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 			return angular.lowercase(item).indexOf(lowercaseQuery) === 0;
 		};
 	}
+
+	self.currentWeight = 1;
+
+	self.transformFilterChip = function(chip){
+		console.log("chip: " + chip);
+		return {
+			'filter'	: chip,
+			'weight'	: self.currentWeight,
+		};;
+	};
 });

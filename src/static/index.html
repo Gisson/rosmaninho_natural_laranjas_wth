@@ -47,28 +47,33 @@
 			</md-chip-template>
 		</md-chips>
 
+
+		<md-slider-container>
+			<span>Filter Weight</span>
+			<md-slider flex min="-1024" max="1024" ng-model="ctrl.currentWeight" aria-label="Weight" id="weight-slider">
+			</md-slider>
+			<md-input-container>
+			<input flex type="number" ng-model="ctrl.currentWeight" aria-label="Weight" aria-controls="weight-slider">
+			</md-input-container>
+		</md-slider-container>
+		<div id="my-filters">
 		<md-chips
-			ng-model="ctrl.goodFilters"
-			md-enable-chip-edit="true"
+			ng-model="ctrl.filters"
+			md-enable-chip-edit="false"
 			readonly="false"
 			md-removable="true"
-			placeholder="Enter good filter"
+			md-transform-chip="ctrl.transformFilterChip($chip)"
+			placeholder="Enter filter"
 			delete-button-label="Remove filter"
-			secondary-placeholder="+ Good Filter"
+			secondary-placeholder="+ Filter"
 			title="Write and press Enter to add"
-			delete-hint="Press delete to remove tag">
+			delete-hint="Press delete to remove filter">
+			<md-chip-template>
+				<span class="filter">{{$chip.filter}}</span>
+				<span class="weight" title="Weight">{{$chip.weight}}</span>
+			</md-chip-template>
 		</md-chips>
-		<md-chips
-			ng-model="ctrl.badFilters"
-			md-enable-chip-edit="true"
-			readonly="false"
-			md-removable="true"
-			placeholder="Enter bad filter"
-			delete-button-label="Remove filter"
-			secondary-placeholder="+ Bad Filter"
-			title="Write and press Enter to add"
-			delete-hint="Press delete to remove tag">
-		</md-chips>
+		</div>
 	</md-content>
 
 

@@ -20,8 +20,7 @@ class MainHandler(tornado.web.RequestHandler):
 			data = tornado.escape.json_decode(self.request.body)
 
 			languages = data['languages']
-			goodFilters = data['goodFilters']
-			badFilters = data['badFilters']
+			filters = data['filters']
 
 			if username in self.cache:
 				rank = self.cache[username]['rank-cache']
@@ -36,16 +35,10 @@ class MainHandler(tornado.web.RequestHandler):
 					print(l)
 					man.add_tech(l)
 
-				print("== goodFilters ==")
-				for f in goodFilters:
+				print("== filters ==")
+				for f in filters:
 					print(f)
-					man.add_filter(1, f)
-
-				print("== badFilters ==")
-				for f in badFilters:
-					print(f)
-					man.add_filter(-1, f)
-
+					man.add_filter(f['weight'], f['filter'
 				rank = man.rank()
 				user_info = man.get_user_info()
 				######CACHE DISABLED###self.cache[username]={'rank-cache':rank, 'info-cache':user_info}
