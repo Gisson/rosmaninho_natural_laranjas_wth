@@ -15,6 +15,10 @@ class Keys:
     USER = 'user'
     RANKINGS ='rankings'
 
+class Limits:
+    MAX_FILES = 30
+    MAX_REPOS = 5
+
 class Manager:
     @staticmethod
     def getGithub():
