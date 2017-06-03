@@ -72,7 +72,7 @@ class Ranker:
                     rank += filter.weight
         return {Keys.USER: line.author, Keys.RANK: rank, Keys.MATCHES: match_counts, Keys.WEAK_MATCHES: {}}
 
-def test():
+def test_ranker():
     logging.basicConfig(level=logging.DEBUG)
     logger = logging.getLogger(__name__)
     logger.level = logging.DEBUG

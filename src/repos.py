@@ -44,10 +44,11 @@ class Repos:
         logger.info("[REPOS] - Returning the matching list of repos=" + str(filtered_repos))
         return filtered_repos
 
-if(logger.level == logging.DEBUG):
+def test():
     # Just to test this one class
-    r = Repos("rodrigorato")
+    r = Repos("nuno-silva")
     r.add_tech("Java")
-    for repo in r.get_repos():
+    results = r.get_repos()
+    for repo in results:
         print(repo.name)
-        
+    return results

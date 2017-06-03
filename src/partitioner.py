@@ -4,7 +4,7 @@ from block import *
 import base64
 import re
 import logging
-from manager import Manager
+from manager import *
 from block import *
 
 log_level = logging.INFO
