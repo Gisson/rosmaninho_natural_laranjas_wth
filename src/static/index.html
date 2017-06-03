@@ -50,7 +50,7 @@
 
 		<md-slider-container>
 			<span>Filter Weight</span>
-			<md-slider flex min="-1024" max="1024" ng-model="ctrl.currentWeight" aria-label="Weight" id="weight-slider">
+			<md-slider flex min="-10" max="10" ng-model="ctrl.currentWeight" aria-label="Weight" id="weight-slider">
 			</md-slider>
 			<md-input-container>
 			<input flex type="number" ng-model="ctrl.currentWeight" aria-label="Weight" aria-controls="weight-slider">
@@ -68,7 +68,7 @@
 			secondary-placeholder="+ Filter"
 			title="Write and press Enter to add"
 			delete-hint="Press delete to remove filter">
-			<md-chip-template>
+			<md-chip-template ng-class="$chip.class">
 				<span class="filter">{{$chip.filter}}</span>
 				<span class="weight" title="Weight">{{$chip.weight}}</span>
 			</md-chip-template>

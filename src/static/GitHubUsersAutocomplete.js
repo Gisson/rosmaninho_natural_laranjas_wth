@@ -103,6 +103,7 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 		return {
 			'filter'	: chip,
 			'weight'	: self.currentWeight,
+			'class'		: self.currentWeight > 0 ? "filter-good" : "filter-bad",
 		};;
 	};
 });

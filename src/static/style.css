@@ -61,10 +61,6 @@ md-card .login a {
 	color: inherit;
 }
 
-md-card .login::before {
-	content: "@";
-}
-
 @media (min-width: 1024px) {
 	main {
 		max-width: 960px;
@@ -82,6 +78,8 @@ md-card .login::before {
 
 
 #my-filters .filter {
+}
+#my-filters .weight {
 	font-weight: bold;
 }
 #my-filters .weight::before {
@@ -89,4 +87,16 @@ md-card .login::before {
 }
 #my-filters .weight::after {
 	content: ')';
+}
+
+.filter-good .weight {
+	color: #33691E;
+}
+
+.filter-bad .weight {
+	color: #B71C1C;
+}
+
+md-slider:hover {
+	cursor: pointer;
 }
