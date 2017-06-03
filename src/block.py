@@ -19,6 +19,9 @@ class Line(CodeElement):
 class Block(CodeElement):
     def __init__(self,code_elements=[]):
         self.code_elements = code_elements
+        self.linecount = 0
+        for elm in code_elements:
+            self.linecount += elm.linecount
 
     def add_code_element(self, code_element):
         self.code_elements += [code_element]
