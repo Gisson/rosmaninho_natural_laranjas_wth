@@ -45,6 +45,25 @@ md-card .avatar {
     background-repeat: no-repeat;
 }
 
+md-card .rank {
+}
+
+md-card .name {
+}
+
+md-card .login {
+	color: rgba(255,255,255,0.7);
+	font-size: 14px;
+}
+
+md-card .login a {
+	color: inherit;
+}
+
+md-card .login:before {
+	content: "@";
+}
+
 @media (min-width: 1024px) {
 	main {
 		max-width: 960px;
