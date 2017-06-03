@@ -52,8 +52,11 @@
 					No users found.
 				</md-not-found>
 			</md-autocomplete>
+			<div class="container" ng-class="{'visible' : ctrl.loading}"  layout-align="center center">
+				<md-progress-linear md-mode="indeterminate" ng-disabled="!ctrl.loading"></md-progress-linear>
+			</div>
 			<div layout="column" layout-align="center end">
-				<md-button type="submit" class="md-primary md-raised" ng-disabled="usernameForm.$invalid">Rank</md-button>
+				<md-button type="submit" class="md-primary md-raised" ng-disabled="usernameForm.$invalid || ctrl.loading">Rank</md-button>
 			</div>
 		</form>
 	</md-content>

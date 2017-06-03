@@ -12,6 +12,7 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 	self.querySearch = querySearch;
 	self.searchText = "";
 	self.resultUsers = [];
+	self.loading = false;
 
 	function querySearch (query) {
 		var results = query ? self.items.filter( createFilterFor(query) ) : self.items, deferred;
@@ -44,14 +45,18 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 	}
 
 	self.submit = function (event){
+		self.loading = true;
 		$http.get("api/rankuser?username=" + self.searchText)
 		.then(function(response){
 			var item = response.data;
 			self.showUser(item);
+			self.loading = false;
 		}, function(response){
+			self.loading = false;
+			var error = response.data ? response.data : "Error. Is the server sleeping?";
 			$mdToast.show(
 				$mdToast.simple()
-				.textContent(response.data)
+				.textContent(error)
 				.toastClass('md-toast-error')
 			);
 		});
