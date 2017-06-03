@@ -40,7 +40,7 @@ def make_app():
 		(r"/", IndexHandler),
 
 		# Serve everthing inside static/ on /
-		(r"/(.*)",tornado.web.StaticFileHandler, {"path": "./static"},),
+		(r"/(.*)",tornado.web.StaticFileHandler, {"path": "./src/static"},),
 	])
 
 if __name__ == "__main__":
