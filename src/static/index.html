@@ -110,8 +110,10 @@
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-headline">
-						<span class="rank">{{item.rank.rank}}</span>
-						<span class="name">{{item.details.name ? item.details.name : item.rank.user}}</span>
+						<span class="rank">{{item.rank.rank ? item.rank.rank.toFixed(2) : '-'}}</span>
+						<span class="name" ng-attr-title="{{item.details.hireable != true ? 'Not for hire' : 'For hire!'}}">
+							{{item.details.name ? item.details.name : item.rank.user}}
+						</span>
 						<span class="login">
 							<a href="https://github.com/{{item.rank.user}}" target="_blank">{{item.rank.user}}</a>
 						</span>
