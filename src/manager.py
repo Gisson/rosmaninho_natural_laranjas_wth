@@ -62,7 +62,7 @@ class Manager:
 
     def rank(self):
         ranks = {'repos-with': {'wiki-enabled': 0, 'wiki-disabled': 0}}
-        results = self.repositories.get_repos()
+        results = self.repositories.get_watched()
         for repo in results:
             logger.debug("rank_repo_name: " + repo.name)
             commits = repo.get_commits(author=self.user)
