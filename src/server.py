@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import json
 import tornado.ioloop
 import tornado.web
 import traceback
@@ -16,6 +17,12 @@ class MainHandler(tornado.web.RequestHandler):
 		try:
 			print("CACHE: ", self.cache)
 			username = self.get_argument("username");
+			data = tornado.escape.json_decode(self.request.body)
+
+			languages = data['languages']
+			goodFilters = data['goodFilters']
+			badFilters = data['badFilters']
+
 			if username in self.cache:
 				rank = self.cache[username]['rank-cache']
 				user_info = self.cache[username]['info-cache']
@@ -23,11 +30,26 @@ class MainHandler(tornado.web.RequestHandler):
 				if len(self.cache) > 128: # simple way to clean the cache and don't fill the memory forever
 					self.cache = {}
 				man = manager.Manager(username)
+
+				print("== languages ==")
+				for l in languages:
+					print(l)
+					man.add_tech(l)
+
+				print("== goodFilters ==")
+				for f in goodFilters:
+					print(f)
+					man.add_filter(1, f)
+
+				print("== badFilters ==")
+				for f in badFilters:
+					print(f)
+					man.add_filter(-1, f)
+
 				rank = man.rank()
 				user_info = man.get_user_info()
 				self.cache[username]={'rank-cache':rank, 'info-cache':user_info}
 			print("CACHE after response: ", self.cache)
-			# TODO: add filters & stuff
 			self.write({'rank': rank, 'details' : user_info})
 		except tornado.web.MissingArgumentError as e:
 			traceback.print_exc()

@@ -28,6 +28,47 @@
 <main>
 <div ng-controller="GitHubUsersAutocomplete as ctrl" layout="column" ng-cloak>
 
+
+	<md-content layout-padding layout="column">
+		<md-chips ng-model="ctrl.selectedLanguages" md-autocomplete-snap
+			md-transform-chip="ctrl.transformLanguageChip($chip)"
+			md-require-match="false">
+			<md-autocomplete
+					md-selected-item="ctrl.selectedLanguage"
+					md-search-text="ctrl.searchLanguageText"
+					md-items="item in ctrl.queryLanguage(ctrl.searchLanguageText)"
+					md-item-text="item"
+					placeholder="Enter languages">
+				<span md-highlight-text="ctrl.searchLanguageText">{{item}}</span>
+			</md-autocomplete>
+			<md-chip-template>
+				<span>{{$chip}}</span>
+			</md-chip-template>
+		</md-chips>
+
+		<md-chips
+			ng-model="ctrl.goodFilters"
+			md-enable-chip-edit="true"
+			readonly="false"
+			md-removable="true"
+			placeholder="Enter good filter"
+			delete-button-label="Remove filter"
+			secondary-placeholder="+ Good Filter"
+			delete-hint="Press delete to remove tag">
+		</md-chips>
+		<md-chips
+			ng-model="ctrl.badFilters"
+			md-enable-chip-edit="true"
+			readonly="false"
+			md-removable="true"
+			placeholder="Enter bad filter"
+			delete-button-label="Remove filter"
+			secondary-placeholder="+ Bad Filter"
+			delete-hint="Press delete to remove tag">
+		</md-chips>
+	</md-content>
+
+
 	<md-content layout-padding layout="column">
 		<form ng-submit="ctrl.submit($event)" name="usernameForm">
 			<md-autocomplete

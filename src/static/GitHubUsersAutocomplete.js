@@ -13,6 +13,9 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 	self.searchText = "";
 	self.resultUsers = [];
 	self.loading = false;
+	self.goodFilters = [];
+	self.badFilters = [];
+	self.selectedLanguages = [];
 
 	function querySearch (query) {
 		var results = query ? self.items.filter( createFilterFor(query) ) : self.items, deferred;
@@ -23,8 +26,8 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 			deferred.resolve(response.data.items);
 			self.items = response.data.items;
 		}, function(response){
-			deferred.reject(response.data);
 			var error = response.data.message ? response.data.message : "No message. Maybe the internet is sleepy";
+			deferred.reject(response.data ? response.data : []);
 			$mdToast.show(
 				$mdToast.simple()
 				.textContent(response.data.message)
@@ -39,14 +42,19 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 		var lowercaseQuery = angular.lowercase(query);
 
 		return function filterFn(item) {
-			return (item.login.indexOf(lowercaseQuery) === 0);
+			return (angular.lowercase(item.login).indexOf(lowercaseQuery) === 0);
 		};
 
 	}
 
 	self.submit = function (event){
 		self.loading = true;
-		$http.get("api/rankuser?username=" + self.searchText)
+		$http.post("api/rankuser?username=" + self.searchText,
+		JSON.stringify({
+			'goodFilters' : self.goodFilters,
+			'badFilters' : self.badFilters,
+			'languages' : self.selectedLanguages,
+		}))
 		.then(function(response){
 			var item = response.data;
 			self.showUser(item);
@@ -69,4 +77,24 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 	self.removeUser = function(item){
 		self.resultUsers.splice(self.resultUsers.indexOf(item), 1);
 	};
+
+
+	self.transformLanguageChip = function(chip){
+		return undefined; // simply add
+	};
+	self.searchLanguageText = "";
+	self.selectedLanguage = "";
+
+	self.languages = ["C", "C++", "Java", "JavaScript", "Python", "Bash", "HTML", "CSS", "PHP"];
+
+	self.queryLanguage = function (query) {
+		return query ? self.languages.filter( createSimpleFilterFor(query) ) : self.languages;
+	}
+
+	function createSimpleFilterFor(query) {
+		var lowercaseQuery = angular.lowercase(query);
+		return function filterFn(item) {
+			return angular.lowercase(item).indexOf(lowercaseQuery) === 0;
+		};
+	}
 });
