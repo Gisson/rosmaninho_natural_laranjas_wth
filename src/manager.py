@@ -15,10 +15,13 @@ logging.basicConfig(level = log_level)
 logger = logging.getLogger(__name__)
 logger.level = log_level
 
-
-class Keys:
-    USER = 'user'
-    RANKINGS ='rankings'
+class UserAttributes:
+    AVATAR_URL="avatarurl"
+    BIO="bio"
+    CONTRIBUTIONS="contrib"
+    EMAIL="email"
+    HIREABLE="hireable"
+    NAME="name"
 
 class Limits:
     MAX_FILES = 30
@@ -70,7 +73,10 @@ class Manager:
             matches.pop(Keys.USER, None)
             ranks = sum_dict(ranks, matches)
         ranks[Keys.USER] = self.user
+        ran
         return ranks
+    def get_user_info(self):
+        return {UserAttributes.AVATAR_URL : self.user_avatarurl,UserAttributes.BIO : self.user_bio, UserAttributes.CONTRIBUTIONS : self.user_contributions, UserAttributes.EMAIL : self.user_email, UserAttributes.HIREABLE : self.user_hireable, UserAttributes.NAME : self.user_name}
 
 def test():
     repo = testr()[0]
