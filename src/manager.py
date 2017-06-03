@@ -62,10 +62,11 @@ class Manager:
         return self
 
     def rank(self):
-        ranks = {'rank': 0, 'matches': {}, 'weak-matches': {},'repos-with': {'wiki-enabled': 0, 'wiki-disabled': 0}}
+        ranks = {'rank': 0, 'matches': {}, 'weak-matches': {}, 'repo-count':0, 'processed-commits': 0, 'repos-with': {'wiki-enabled': 0, 'wiki-disabled': 0}}
         results = self.repositories.get_repos()
         logger.info("ranking " + str(len(results)) + " repos")
         for repo in results:
+            ranks['repo-count']+=1
             logger.debug("rank_repo_name: " + repo.name)
             commits = repo.get_commits(author=self.user)
             if commits:
@@ -79,6 +80,7 @@ class Manager:
                 continue
             blocks = []
             for c in commits:
+                ranks['processed-commits']+=1
                 logger.debug("commit_sha: "+c.sha)
                 # filter filenames
                 for f in list(c.files):
