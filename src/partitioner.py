@@ -19,17 +19,17 @@ class Partitioner:
         self.author = author
 
     def get_code_elements(self):
+        fileblocks=[]
         for fil in self.files:
-            print(fil.patch)
-        return [CodeElement()]
+            fileblocks+=DiffParser.parse(self.author,fil.patch)
+        return fileblocks
 regex="@@ -(\d+),(\d+) \+(\d+),(\d+) @@"
 ignoreregex="-(.*)"
 class DiffParser:
-    def __init__(self,author):
-        self.blocks=[]
-        self.author=author
 
-    def parse(self,diff):
+    @staticmethod
+    def parse(author,diff):
+        blocks=[]
         wantedStuff=[]
         difftuple=diff.split("\n")[4:]
         for line in difftuple:
@@ -41,15 +41,15 @@ class DiffParser:
                 print("Making block")
                 if not wantedStuff:
                     continue
-                self.blocks+=[Block(wantedStuff)]
+                blocks+=[Block(wantedStuff)]
                 wantedStuff=[]
             elif not match and not nomatch:
-                wantedStuff+=[Line(self.author,0,line)]
+                wantedStuff+=[Line(author,0,line)]
                 print("It matched")
             else:
                 print("Da fak?")
-        self.blocks+=[Block(wantedStuff)]
-        return self.blocks
+        blocks+=[Block(wantedStuff)]
+        return blocks
         #self.old_start_line=match.group(1)
         #self.old_line_size=match.group(2)
         #self.new_start_line=match.group(3)
