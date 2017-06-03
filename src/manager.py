@@ -66,12 +66,25 @@ class Manager:
     def rank(self):
         ranks = {'rank': 0, 'matches': {}, 'weak-matches': {}, 'repo-count':0, 'processed-commits': 0, 'repos-with': {'wiki-enabled': 0, 'wiki-disabled': 0}}
         results = self.repositories.get_repos()
+        if not results:
+            logger.info("no repos!!!")
+            return ranks
+
         logger.info("ranking " + str(len(results)) + " repos")
         for repo in results:
             ranks['repo-count']+=1
             logger.debug("rank_repo_name: " + repo.name)
             commits = repo.get_commits(author=self.user,since=datetime.datetime.now()-datetime.timedelta(days=Limits.TIME_WINDOW),until=datetime.datetime.now())
-            if commits:
+            print(commits)
+            hasCommits = False
+            try:
+                for c in commits:
+                    hasCommits = True
+                    break;
+            except:
+                logger.debug("no commits!! " + repo.name)
+
+            if hasCommits:
                 repos_with = ranks['repos-with']
                 if repo.has_wiki:
                     repos_with['wiki-enabled']+=1
