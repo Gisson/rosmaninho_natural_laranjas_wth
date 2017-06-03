@@ -100,3 +100,10 @@ def test():
     r.add_filter(0.1, "public")
     r.add_filter(-5, "static")
     return b.accept(r)
+
+def test2():
+    man = Manager("nuno-silva")
+    man.add_tech("C")
+    man.add_filter(2, "struct")
+    man.add_filter(-1, "\*")
+    return man.rank()
