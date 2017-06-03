@@ -5,6 +5,7 @@ import logging
 from collections import defaultdict
 
 from block import *
+from repos import *
 
 logger = logging.getLogger(__name__)
     

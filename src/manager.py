@@ -4,7 +4,7 @@ from github import Github
 import os
 import logging
 
-import repos
+from repos import *
 from  partitioner import Partitioner
 from block import *
 from ranker import *
@@ -32,21 +32,35 @@ class Manager:
     
     def __init__(self, user):
         self.user = user
+        self.repositories = Repos(user)
+        self.ranker = Ranker(user)
     
     def add_tech(self, techname):
-        # TODO
-        pass
+        """filter user repos by technology"""
+        self.repositories.add_tech(techname)
+        return self
 
-    def add_filter(self, filter_type, value):
-        # TODO
-        pass
+    def add_filter(self, weight, pattern):
+        self.ranker.add_filter(int(weight), pattern)
+        return self
 
     def rank(self):
-        return { Keys.USER: self.user,
-                Keys.RANKINGS: { 'critA': 0,
-                                  'critB': 0
-                                }
-               }
+        ranks = {}
+        results = get_repos()
+        for repo in results:
+            logger.debug("repo: " + repo.name)
+            commits = repo.get_commits(author=self.user)
+            blocks = []
+            for c in commits:
+                part = Partitioner(self.user, c.files)
+                blocks += part.get_code_elements()
+            b = Block(blocks)
+            
+            matches = b.accept(self.ranker)
+            matches.pop(Keys.USER, None)
+            ranks = sum_dict(ranks, matches)
+        ranks[Keys.USER] += matches[self.user]
+        return ranks
 
 def test():
     repo = repos.test()[0]
