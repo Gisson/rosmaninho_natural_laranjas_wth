@@ -22,7 +22,7 @@ class Repos:
 
     def add_tech(self, tech):
         logger.info("[REPOS] - Adding tech filter \"" + tech + "\"")
-        self.techs += [tech]
+        self.techs += [tech.lower()]
 
     """
         Returns a list of github.Repository.Repository objects
@@ -36,7 +36,11 @@ class Repos:
 
         for repo, _ in zip(repos, range(manager.Limits.MAX_REPOS)):
             logger.info("[REPOS] - Checking their repos against the techs=" + str(self.techs))
-            if all(lang in repo.get_languages() for lang in self.techs):
+            languages = []
+            for lang in repo.get_languages():
+                languages += [lang.lower()]
+
+            if all(lang in languages for lang in self.techs):
                 filtered_repos += [repo]
                 logger.info("[REPOS] - " + repo.name + " matched!")
             else:
