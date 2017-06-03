@@ -1,0 +1,40 @@
+body {
+	font-family: sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+
+.md-autocomplete-suggestions li {
+	height: 30px;
+	line-height: 30px;
+}
+
+.md-autocomplete-suggestions li div {
+	float: left;
+}
+
+.md-autocomplete-suggestions li username {
+	vertical-align: middle;
+	line-height: 30px;
+}
+
+.md-autocomplete-suggestions .avatar {
+	width: 24px;
+	height: 24px;
+	margin: 3px 6px 3px 0;
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+}
+
+.md-toast-error .md-toast-content{
+	background: #B71C1C !important;
+	color: white !important;
+}
+
