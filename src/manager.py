@@ -44,8 +44,12 @@ class Manager:
         self.user_name=userobj.name
         self.repositories = Repos(user)
         self.ranker = Ranker(user)
+        self.filename_filter=".*"
 
-
+    def set_filename_filter(self, pattern):
+        """ filter the files in the repo using a pattern in the filename"""
+        self.filename_filter = pattern
+        return self
 
     def add_tech(self, techname):
         """filter user repos by technology"""
@@ -65,6 +69,14 @@ class Manager:
             blocks = []
             for c in commits:
                 logger.debug("commit_sha: "+c.sha)
+                # filter filenames
+                for f in list(c.files):
+                    if not re.search(self.filename_filter, f.filename):
+                        logger.info("Ignoring File: "+f.filename)
+                        c.files.remove(f)
+
+                if c.files == [] or c.files == None:
+                    continue
                 part = Partitioner(self.user, c.files)
                 blocks += part.get_code_elements()
             b = Block(blocks)
@@ -96,6 +108,7 @@ def test():
 def test2():
     man = Manager("nuno-silva")
     man.add_tech("C")
+    #man.set_filename_filter(".*\.[c|h]")
     man.add_filter(2, "struct")
     man.add_filter(-1, "\*")
     return man.rank()
