@@ -134,15 +134,17 @@
 				</md-card-title-media>
 			</md-card-title>
 			<md-card-content>
-				{{item}}
-				{{item.rank.repo-count}}
-
 			</md-card-content>
-			<md-card-actions layout="row" layout-align="end center">
+			<md-card-actions layout="row" layout-align="none center">
+				<div flex>Repo count: <span>{{item.rank.repo-count}}</span></div>
+				<div flex>Wikis: <span title="enabled wikis">{{item.rank.repos-with.wiki-enabled}}</span></div>
+				<div flex>Analized Commits: <span>{{item.rank.processed-commits}}</span></div>
+				<div layout-align="end center">
 				<md-button ng-href="mailto:{{item.details.email}}"
 					ng-show="item.details.email != ''"
 					target="_blank" class="email">{{item.details.email}}</md-button>
 				<md-button ng-click="ctrl.removeUser(item)">Dismiss</md-button>
+				</div>
 			</md-card-actions>
 			</div>
 		</md-card>

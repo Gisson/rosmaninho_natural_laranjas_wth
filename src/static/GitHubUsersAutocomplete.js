@@ -70,6 +70,7 @@ app.controller('GitHubUsersAutocomplete', function ($http, $timeout, $q, $log, $
 	}
 
 	self.showUser = function(item){
+		console.log(item);
 		self.resultUsers.push(item);
 	};
 	self.removeUser = function(item){
